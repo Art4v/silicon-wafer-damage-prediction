@@ -1,31 +1,9 @@
 ''''
-This is a test program to calculate an "a-score" for a given semiconductor wafer cleaning process.
+This is a test program to calculate an "A-score" for a given semiconductor wafer cleaning process.
 
 This program is meant to test the concept of a score for a given semiconductor wafer cleaning process. It will later be expanded to include a more complex scoring system and a GUI.
 
-How it works:
-
-The crieteria this specific program is based on are:
-    
-    1. Partical residue (weighted 2)
-        We expect an input score from 
-
-    2. Chemical residue (weighted 2)
-
-
-    3. Surface damage   (weighted 1)
-
-
-    4. Oxide control    (weighted 1)
-
-
-    5. Reliability     (weighted 1)
-
-
-
-
-
-
+The criteria for the score are:
 
 '''
 
