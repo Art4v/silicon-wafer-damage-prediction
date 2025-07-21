@@ -1,8 +1,10 @@
+# import libraries
 import numpy as np
 import pandas as pd
+import os
 
 # Load the original synthetic dataset
-df = pd.read_csv('synthetic_data.csv')
+df = pd.read_csv("C:/Users/aarav/OneDrive/Desktop/myCode/science_extension/synthetic_data/synthetic_data.csv")
 
 # Set random seed and save state
 random_state = 0
@@ -11,7 +13,7 @@ rng = np.random.RandomState(random_state)
 tuple_state = rng.get_state()
 
 # Define noise level as a fraction of each column's std deviation
-noise_fraction = 0.05  # 5% noise
+noise_fraction = 0.10  # 10% noise
 
 # List of numeric feature columns to perturb
 target_cols = [
@@ -33,7 +35,9 @@ df['Damage_Prob'] = df['Damage_Prob'].clip(0, 1)
 # Restore RNG state if needed elsewhere
 rng.set_state(tuple_state)
 
-# Save the noisy dataset
-df.to_csv('synthetic_data.csv', index=False)
+
+# Save the noisy dataset in the same folder as this script
+csv_path = os.path.join(os.path.dirname(__file__), 'synthetic_data.csv')
+df.to_csv(csv_path, index=False)
 
 print(f"Noisy dataset saved with random_state={random_state}")

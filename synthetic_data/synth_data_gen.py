@@ -1,5 +1,7 @@
+# import libraries
 import numpy as np
 import pandas as pd
+import os
 from scipy.special import expit  # logistic sigmoid
 
 # Set random seed for reproducibility
@@ -124,10 +126,10 @@ df['Damage_Prob'] = expit(linear_combination)
 df['Pass_Fail'] = np.where(df['Damage_Prob'] < 0.5, 'Pass', 'Fail')
 
 # Save the dataset as a CSV file
-csv_path = 'synthetic_data.csv'
+csv_path = os.path.join(os.path.dirname(__file__), 'synthetic_data.csv')
 df.to_csv(csv_path, index=False)
 
 # Print the first 5 rows of the DataFrame rounded to 3 decimals
-print("Raw synthetic data generated and saved with random_state{random_state}")
+print("Raw synthetic data generated and saved with random_state={random_state}")
 
 
