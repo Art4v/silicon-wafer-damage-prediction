@@ -70,6 +70,7 @@ n = 1000
 # Prepare data storage
 data = []
 methods_list = list(methods.keys())
+print(methods_list)
 
 # Generate synthetic data
 for _ in range(n):
