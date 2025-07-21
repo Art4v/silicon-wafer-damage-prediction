@@ -3,7 +3,8 @@ import pandas as pd
 from scipy.special import expit  # logistic sigmoid
 
 # Set random seed for reproducibility
-np.random.seed(0)
+random_state = 0
+np.random.seed(random_state)
 
 # Define cleaning methods and their parameter means and standard deviations
 # These values are based on typical industry reports for each cleaning method
@@ -99,9 +100,34 @@ for _ in range(n):
 # Convert the list of dictionaries into a DataFrame
 df = pd.DataFrame(data)
 
+# Simulate damage probability using a logistic function based on features
+# Assign weights to each feature (higher weight = more influence on damage)
+weights = np.array([0.3, 0.2, 0.1, 0.15, 0.1, -0.05, 0.1, 0.1, 0.2])
+
+# Select features that influence damage prediction
+features = df[['Surface_Roughness_nm', 'Defect_Density_per_cm2', 'Etch_Rate_nm_per_min',
+               'Interface_Trap_Density_cm2_eV', 'Fixed_Oxide_Charge_C_per_cm2',
+               'Minority_Carrier_Lifetime_us', 'PN_Junction_Leakage_A_per_cm2',
+               'Gate_Oxide_Breakdown_MV_per_cm', 'Pit_Density_per_cm2']]
+
+# Normalize features (mean=0, std=1) to make weights comparable
+feat_norm = (features - features.mean()) / features.std()
+
+# Apply linear combination of normalized features with weights
+# Subtract a bias term (-0.5) to shift the sigmoid curve
+linear_combination = feat_norm.values.dot(weights) - 0.5
+
+# Convert the linear output into a probability (0 to 1) using the logistic sigmoid
+df['Damage_Prob'] = expit(linear_combination)
+
+# Assign pass/fail based on damage probability threshold (0.5)
+df['Pass_Fail'] = np.where(df['Damage_Prob'] < 0.5, 'Pass', 'Fail')
+
 # Save the dataset as a CSV file
-csv_path = 'damage_synthetic_data.csv'
+csv_path = 'synthetic_data.csv'
 df.to_csv(csv_path, index=False)
 
 # Print the first 5 rows of the DataFrame rounded to 3 decimals
-print(df.head().round(3))
+print("Raw synthetic data generated and saved with random_state{random_state}")
+
+
