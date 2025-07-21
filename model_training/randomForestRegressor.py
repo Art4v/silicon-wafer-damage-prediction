@@ -2,6 +2,7 @@ import pandas as pd
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 
 ''' Parse Synthetic Data CSV File '''
 
@@ -27,5 +28,17 @@ rfc = RandomForestRegressor(n_estimators=30, random_state=0)
 # fit the model to the training data
 rfc.fit(X_train, y_train)
 
-# print model score
-print(rfc.score(X_test, y_test))
+''' Model Testing and Evaluation '''
+
+# make predictions on the test set
+y_pred = rfc.predict(X_test)
+
+# assess the model's performance using loss functions: mean squared error, mean absolute error, and R-squared
+metrics = {
+    'Dataset': ['Training', 'Test'],
+    'MSE': [mean_squared_error(y_test, y_pred)],
+    'MAE': [mean_absolute_error(y_test, y_pred)],
+    'R2': [r2_score(y_test, y_pred)]
+}
+
+print(metrics)
