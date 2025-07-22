@@ -3,8 +3,9 @@ import numpy as np
 import pandas as pd
 import os
 
-# Load the original synthetic dataset
-df = pd.read_csv("C:/Users/aarav/OneDrive/Desktop/myCode/science_extension/synthetic_data/synthetic_data.csv")
+# Load the original synthetic dataset as pandas dataframe
+csv_path = os.path.join(os.path.dirname(__file__), 'synthetic_data.csv')
+df = pd.read_csv(csv_path)
 
 # Set random seed and save state
 random_state = 0
@@ -38,4 +39,4 @@ rng.set_state(tuple_state)
 csv_path = os.path.join(os.path.dirname(__file__), 'synthetic_data.csv')
 df.to_csv(csv_path, index=False)
 
-print(f"Noisy dataset saved with random_state={random_state}")
+print(f"Dataset noised with random_state={random_state}")

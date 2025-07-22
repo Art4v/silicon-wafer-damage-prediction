@@ -1,15 +1,19 @@
-import pandas as pd
-import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 import matplotlib.pyplot as plt 
 import numpy as np
+import pandas as pd
+import seaborn as sns
+import os
 
 ''' Parse Synthetic Data CSV File '''
-
 # import as pandas dataframe
-df = pd.read_csv("C:/Users/aarav/OneDrive/Desktop/myCode/science_extension/synthetic_data/synthetic_data.csv")
+script_dir = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(script_dir, "..", "synthetic_data", "synthetic_data.csv")
+print(csv_path)
+df = pd.read_csv(csv_path)
+
 
 # remove the Cleaning_Method column, redundant for analysis
 df.drop('Cleaning_Method', axis=1, inplace=True)  
